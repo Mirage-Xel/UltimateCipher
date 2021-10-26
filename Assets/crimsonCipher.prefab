@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114717041101291274}
   - component: {fileID: 114302934409123448}
   m_Layer: 0
-  m_Name: vermilionCipher
+  m_Name: crimsonCipher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6642,8 +6642,8 @@ MonoBehaviour:
   m_Script: {fileID: -119419473, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModuleType: vermilionCipher
-  ModuleDisplayName: Vermilion Cipher
+  ModuleType: crimsonCipher
+  ModuleDisplayName: Crimson Cipher
   RequiresTimerVisibility: 0
 --- !u!114 &114079206648928728
 MonoBehaviour:

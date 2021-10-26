@@ -9,8 +9,66 @@ using Words;
 using Rnd = UnityEngine.Random;
 using System.Runtime.Remoting.Messaging;
 
-public class vermilionCipher : MonoBehaviour
+static class ListHelpers
 {
+
+    public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize)
+    {
+        return source
+            .Select((x, i) => new { Index = i, Value = x })
+            .GroupBy(x => x.Index / chunkSize)
+            .Select(x => x.Select(v => v.Value).ToList())
+            .ToList();
+    }
+
+    public static List<List<T>> Transpose<T>(this List<List<T>> lists)
+    {
+        var longest = lists.Any() ? lists.Max(l => l.Count) : 0;
+        List<List<T>> outer = new List<List<T>>(longest);
+        for (int i = 0; i < longest; i++)
+            outer.Add(new List<T>(lists.Count));
+        for (int j = 0; j < lists.Count; j++)
+            for (int i = 0; i < longest; i++)
+                outer[i].Add(lists[j].Count > i ? lists[j][i] : default(T));
+        return outer;
+    }
+
+    public static List<int> IndexOf<T>(this List<List<T>> nestedList, T value)
+    {
+        for (int i = 0; i < nestedList.Count; i++)
+        {
+           List<T> list = nestedList[i];
+            for (int j = 0; j < list.Count; j++)
+                if (list[j].Equals(value))
+                {
+                    return new List<int>() { i, j };
+                }
+        }
+        return new List<int>() { -1, -1 };
+    }
+    public static List<T> RotateIgnoringSome<T> (this List<T> source, int amount, List<T> ignoredValues)
+    {
+        List<T> removedValues = new List<T>();
+        List<int> positions = new List<int>();
+        for (int i = source.Count - 1; i > -1; i--)
+            if(ignoredValues.Contains(source[i]))
+            {            
+                removedValues.Add(source[i]);
+                positions.Add(i);
+                source.RemoveAt(i);
+            }
+        amount = source.Count - amount;
+        source = source.Skip(amount).Concat(source.Take(amount)).ToList();
+        for (int i = removedValues.Count - 1 ; i > -1; i--)
+            source.Insert(positions[i], removedValues[i]);
+        return source;
+    }
+
+}
+public class crimsonCipher : MonoBehaviour
+{
+    private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     public TextMesh[] screenTexts;
     public KMBombInfo Bomb;
     public KMBombModule module;
@@ -39,7 +97,6 @@ public class vermilionCipher : MonoBehaviour
         leftArrow.OnInteract += delegate () { left(leftArrow); return false; };
         rightArrow.OnInteract += delegate () { right(rightArrow); return false; };
         submit.OnInteract += delegate () { submitWord(submit); return false; };
-
         foreach (KMSelectable keybutton in keyboard)
         {
             KMSelectable pressedButton = keybutton;
@@ -52,16 +109,15 @@ public class vermilionCipher : MonoBehaviour
         wordList = new Data().allWords;
         // Answer is always 6 letters long
         answer = pickWord(6);
-        Debug.LogFormat("[Vermilion Cipher #{0}] Answer: {1}", moduleId, answer);
-
-        pages = Enumerable.Range(0, 2).Select(i => Enumerable.Repeat("", 3).ToArray()).ToArray();
-        var encrypted = vermilioncipher(answer);
+        Debug.LogFormat("[Crimson Cipher #{0}] Answer: {1}", moduleId, answer);
+        pages = Enumerable.Range(0, 3).Select(i => Enumerable.Repeat("", 3).ToArray()).ToArray();
+        var encrypted = crimsoncipher(answer);
         pages[0][0] = encrypted;
         page = 0;
         getScreens();
     }
 
-    string vermilioncipher(string word)
+    string crimsoncipher(string word)
     {
 
         //Casear Shuffle Cipher
@@ -73,23 +129,63 @@ public class vermilionCipher : MonoBehaviour
             pivPos = (keyA[i] - '@') % 5 + 1;
             List<char> rightList = word.Take(pivPos).ToList();
             List<char> leftList = word.Skip(pivPos).ToList();
-            Debug.Log(leftList.Concat(rightList).Join(""));
-            leftList = leftList.Select(x => (char)(((x + keyB[i]) % 26) + 'A')).ToList();
+            Debug.Log(leftList.Join("") + "|" + rightList.Join(""));
+            leftList = leftList.Select(x => (char)(((x + keyB[i] + 1) % 26) + 'A')).ToList();
+            Debug.Log(leftList.Join("") + "|" + rightList.Join(""));
             word = leftList.Concat(rightList).Join("");
-            Debug.Log(word);
         }
-        Debug.LogFormat("[Vermilion Cipher #{0}] Caesar Shuffle Cipher keys: {1}, {2}", moduleId, keyA, keyB);
-        Debug.LogFormat("[Vermilion Cipher #{0}] After Caesar Shuffle Cipher: {1}", moduleId, word);
-        pages[0][1] = keyA;
-        pages[0][2] = keyB;
+        Debug.LogFormat("[Crimson Cipher #{0}] Caesar Shuffle Cipher keys: {1}, {2}", moduleId, keyA, keyB);
+        Debug.LogFormat("[Crimson Cipher #{0}] After Caesar Shuffle Cipher: {1}", moduleId, word);
+        pages[2][0] = keyA;
+        pages[2][1] = keyB;
+        //Dual Triplex Reflector Cipher
+        string keyC = pickWord(5, 8);
+        string keyD = pickWord(5, 8);
+        string keyE = pickWord(5);
+        pages[1][0] = keyC;
+        pages[1][1] = keyD;
+        pages[1][2] = keyE;
+        List<List<char>> topReflector = constructTriplexReflector(keyD);
+        List<List<char>> bottomReflector = constructTriplexReflector(keyC);
+        string dtrCipherResult = "";
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.Log(topReflector.Select(x => x.Join("")).Join("\n") + "\n---------\n" + bottomReflector.Select(x => x.Join("")).Join("\n"));
+            char intermediateLetterA = bottomReflector[topReflector.IndexOf(word[i])[0]][topReflector.IndexOf(word[i])[1]];
+            char intermediateLetterB = bottomReflector[topReflector.IndexOf(intermediateLetterA)[0]][topReflector.IndexOf(intermediateLetterA)[1]];
+            char encryptedLetter = bottomReflector[topReflector.IndexOf(intermediateLetterB)[0]][topReflector.IndexOf(intermediateLetterB)[1]];
+            Debug.Log(word[i] + " -> " + intermediateLetterA + " -> " + intermediateLetterB + " -> " + encryptedLetter);
+            dtrCipherResult += encryptedLetter;
+            if (i == 5)
+                break;
+            Debug.Log(keyE[i] + " = " + ((keyE[i] - '@') / 9).ToString() + ((keyE[i] - '@') / 3 % 3).ToString() + ((keyE[i] - '@') % 3).ToString() + " = " + ((keyE[i] - '@') / 9).ToString() + " " + ((keyE[i] - '@') / 3 % 3).ToString() + ((keyE[i] - '@') % 3).ToString() + " = " + ((keyE[i] - '@') / 9).ToString() + ((keyE[i] - '@') / 3 % 3).ToString() + " " + ((keyE[1] - '@') % 3).ToString());
+            List<int> indexA = bottomReflector.IndexOf(intermediateLetterA);
+            List<int> indexB = topReflector.IndexOf(intermediateLetterB);
+            bottomReflector = bottomReflector.Transpose();
+            bottomReflector[indexA[1]] = bottomReflector[indexA[1]].RotateIgnoringSome((keyE[i] - '@') / 9, new List<char>() { ' ' });
+            bottomReflector = bottomReflector.Transpose();
+            bottomReflector[indexA[0]] = bottomReflector[indexA[0]].RotateIgnoringSome((keyE[i] - '@') % 9, new List<char>() { ' ' });
+            topReflector[indexA[0]] = topReflector[indexA[0]].RotateIgnoringSome((keyE[i] - '@') / 3, new List<char>() { ' ' });
+            topReflector = topReflector.Transpose();
+            topReflector[indexA[1]] = topReflector[indexA[1]].RotateIgnoringSome((keyE[i] - '@') % 3, new List<char>() { ' ' });
+            topReflector = topReflector.Transpose();
+        }
+        word = dtrCipherResult;
+        //Transposed Halved Polybius Cipher
+        string keyF = pickWord(5, 8);
+        string keyG = pickWord(7);
+        pages[0][1] = keyF;
+        pages[0][2] = keyG;
         return word;
+       
     }
 
-
-    private int[] sequencing(string str)
+    private List<List<char>> constructTriplexReflector (string key)
     {
-        return str.Select((ch, ix) => str.Count(c => c < ch) + str.Take(ix).Count(c => c == ch)).ToArray();
-    }
+        List<char> flatReflector = (key + alphabet).ToList().Distinct().ToList();
+        flatReflector.Insert(13, ' ');
+        return flatReflector.ChunkBy(9);
+     }
 
     private string pickWord(int length)
     {
@@ -135,9 +231,8 @@ public class vermilionCipher : MonoBehaviour
         screenTexts[0].text = pages[page][0];
         screenTexts[1].text = pages[page][1];
         screenTexts[2].text = pages[page][2];
-        screenTexts[0].fontSize = page == 0 ? 40 : 45;
-        screenTexts[1].fontSize = page == 0 ? 45 : 35;
-        screenTexts[2].fontSize = page == 0 ? 40 : 35;
+        foreach (TextMesh i in screenTexts)
+             i.fontSize = page == 2 ? 40 : 35;       
     }
 
     void submitWord(KMSelectable submitButton)

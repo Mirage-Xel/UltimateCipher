@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Crimson Cipher — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        table {
+            margin: 1em auto;
+			border: none;
+        }
+		.nw {
+			white-space: nowrap;
+		}
+		td.f, th.f, tr.f > td, tr.f > th {
+			border: none;
+		}
+		table.big {
+			margin-top: 0;
+		}
+		table.big svg {
+			display: block;
+		}
+		table.big tr:not(.f) td:not(.f), table.big tr:not(.f) th:not(.f) {
+			width: 1cm;
+			height: 1cm;
+			box-sizing: border-box;
+			padding: 0;
+			text-align: center;
+		}
+		span.p {
+			display: inline-block;
+			width:  .6cm;
+			height: .6cm;
+			background-repeat: no-repeat;
+			background-size: cover;
+			vertical-align: middle;
+		}
+		table.big span.p { display: block; margin: 0 auto; }
+
+		span.p11 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p21 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p31 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p41 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p12 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p22 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p32 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p42 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="none"/></svg>'); }
+		span.p13 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+		span.p23 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+		span.p33 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+		span.p43 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="none"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+		span.p14 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+		span.p24 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="none"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+		span.p34 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="none"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+		span.p44 { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" stroke-width=".05" viewBox="-.5 -.5 2 2"><circle r=".3" fill="black"/><circle cx="1" r=".3" fill="black"/><circle cy="1" r=".3" fill="black"/><circle cx="1" cy="1" r=".3" fill="black"/></svg>'); }
+
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Crimson Cipher</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Ultimate Cipher.svg" class="diagram">
+                <h2>On the Subject of The Crimson Cipher</h2>
+                <p class="flavour-text">Confusion will be my epitaph...</p>
+                <p>On the module, you will see 3 screens, a keyboard, 2 arrows, and a submit button that displays the current page you’re on.</p>
+                <p>Pressing the right arrow takes you to the next page. Pressing the left arrow takes you to the previous page. There are a total of 3 pages.</p>
+
+                <h3>Step 1: Transposed Halved Polybius Cipher</h3>
+                <p>This step uses the encrypted word as well as the two keys on Page 1; known as the fractionation key and the transposition key respectively.</p> 
+				<p>To begin, take the fractionation key and enter it into the left half of the Halved Polybius Square in reading order, removing duplicates. Add the rest of the alphabet letter by letter, moving to the right half after running out of letters. The Halved Polybius Square is laid out like the diagram below.</p>
+				<div style='display: flex; justify-content: space-around; gap: 2cm'>
+				    <table class = "big">
+					<tr class='f'><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+					<tr><td class = 'f'>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><tr>                   
+					<tr><td class = 'f'>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><tr>	
+                    <tr><td class = 'f'>3</td><td></td><td></td><td></td><td>#</td><td>#</td><td></td><td></td><td></td><td>#</td><td>#</td><tr>
+                    <tr><td class = 'f'></td><td colspan =  5>L</td><td colspan =  5>R</td></tr>
+					</table>
+				</div>
+				<p>Convert each letter of the encrypted word into three coordinates and write them out one above the other in the order Half, Row, Column  and to the right of previous letters.</p>
+				<p>Then, for each letter of the transposition key, find it in the Haved Polybius Square and perform the following operation on the 6x3 matrix of coordiantes you created.</p>
+				<ul>
+					<li>If you are at an odd step in the proccess, shift the row of that letter's coordinate in the matrix by the column coordinate.</li><ul>			
+						<li>When doing this, do not move threes in the second column and fours and fives in the third column.</li></ul>
+				</ul>
+			    </div>
+            <div class="page-footer relative-footer">Page 1 of 3</div>
+        </div>
+
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Crimson Cipher</span>
+            </div>
+            <div class="page-content">
+			    <ul>
+				<li>If you are at an even step, count columns from the first column of the matrix equal to the current key letter's column coordiante, then continue counting colums equal to the row coordinate, wrapping around if necessary. Swap the two columns recieved by this procedure.</li>
+				</ul>
+				<p>Read off each column of the resulting matrix and index into the Halved Polybius Square to obtain your new encrypted word.</p>
+            <h3>Step 2: Dual Triplex Reflector Cipher</h3>
+			<p>This step requires the three keywords on page 2, as well as the first encrypted word. The first two keywords will be used to construct two triplex reflectors, while the third will be used to shuffle the reflectors after each encryption step.</p>
+            <p>To construct a triplex reflector, make a string by concatenating the alphabet with the keyword used, removing duplicates, and lay the string out in a 3×9 grid with a hole in the center. The triplex reflector made from the first keyword is the top reflector, and the one made from the second is the bottom reflector.</p>
+			<p>For each letter of the encrypted word, find it in the top reflector, then find the letter in the same position in the bottom reflector, which is your first intermediate letter. Find that leter in the top reflector, then find the letter in that position in the bottom reflector. Find that letter in the top reflector, which is your second intermedate letter, then find the corresponding letter in the decrypted word in the same position in the bottom reflector.</p>
+            <p>Note down the columns and rows you found the intermediate letters in, bearing in mind that the first intermediate letter was found in the bottom reflector and the second. Before decrypting the next letter, permute both reflectors as follows.</p>
+            <ul>
+            <li>Convert the alphabetic position of the current letter of the third key into ternary.</li>
+            <li>Shift the row the first intermediate letter was found in by the two most significant trits taken as a ternary number, and shift the column by the least significant trit.</li>
+            <li>Shift the column the second intermediate letter was found in by the most significant trit, and the row by the two least significant trits taken as a ternary number.</li>
+			<ul><li>Do not move the hole when shifting the reflectors.</li></ul></ul>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 3</div>
+        </div>
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Crimson Cipher</span>
+            </div>
+            <div class="page-content">
+                <h3>Step 3: Caesar Shuffle Cipher</h3>
+				<p>This step requires the encrypted word from step 2 and the two five-letter keywords from page 3.</p>
+				<p>Perform the following steps for each letter of both keywords:</p>
+				<ul>
+				<li>Place a pivot in the position of the current letter of the first key inside the string, then swap the substrings on either side of the pivot.</li>
+				<li>Shift the now-left substring backwards in the alphabet by the current letter of the second key.</li>
+				</ul>
+				<p>Once completed, the result is your decrypted word, which you can now submit. Once you start typing, all the screens will go black and the bottom screen will show what you are typing.</p>
+                <p>To clear it, just click one of the arrows. This goes to one of the pages and clears any input you put in. It will not let you go over 6 letters on input. </p>
+                <p>Once you are satisfied with your input, press the button labeled "SUB" to submit your answer. On a strike, the module will go back to the first page of the module, but it does not regenerate.</p>
+		    </div>
+            <div class="page-footer relative-footer">Page 3 of 3</div>
+        </div>
+    </div>
+</body>
+</html>
