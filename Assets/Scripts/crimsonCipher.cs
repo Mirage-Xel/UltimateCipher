@@ -123,21 +123,21 @@ public class crimsonCipher : MonoBehaviour
         //Casear Shuffle Cipher
         string keyA = pickWord(5);
         string keyB = pickWord(5);
+        pages[2][0] = keyA;
+        pages[2][1] = keyB;
+        Debug.LogFormat("[Crimson Cipher #{0}] Caesar Shuffle Cipher keys: {1}, {2}", moduleId, keyA, keyB);
         int pivPos;
         for (int i = 4; i > -1; i--)
         {
             pivPos = (keyA[i] - '@') % 5 + 1;
             List<char> rightList = word.Take(pivPos).ToList();
             List<char> leftList = word.Skip(pivPos).ToList();
-            Debug.Log(leftList.Join("") + "|" + rightList.Join(""));
+            Debug.LogFormat("[Crimson Cipher #{0}] {1}", moduleId, leftList.Join("") + " |" + rightList.Join(""));
             leftList = leftList.Select(x => (char)(((x + keyB[i] + 1) % 26) + 'A')).ToList();
-            Debug.Log(leftList.Join("") + "|" + rightList.Join(""));
+            Debug.LogFormat("[Crimson Cipher #{0}] {1}", moduleId, leftList.Join("") + "|" + rightList.Join(""));
             word = leftList.Concat(rightList).Join("");
-        }
-        Debug.LogFormat("[Crimson Cipher #{0}] Caesar Shuffle Cipher keys: {1}, {2}", moduleId, keyA, keyB);
+        }        
         Debug.LogFormat("[Crimson Cipher #{0}] After Caesar Shuffle Cipher: {1}", moduleId, word);
-        pages[2][0] = keyA;
-        pages[2][1] = keyB;
         //Dual Triplex Reflector Cipher
         string keyC = pickWord(5, 8);
         string keyD = pickWord(5, 8);
@@ -145,20 +145,21 @@ public class crimsonCipher : MonoBehaviour
         pages[1][0] = keyC;
         pages[1][1] = keyD;
         pages[1][2] = keyE;
-        List<List<char>> topReflector = constructTriplexReflector(keyD);
-        List<List<char>> bottomReflector = constructTriplexReflector(keyC);
+        Debug.LogFormat("[Crimson Cipher #{0}] Dual Triplex Reflector Cipher keys: {1}, {2}, {3}", moduleId, keyC, keyD, keyE);
+        List<List<char>> topReflector = ConstructTriplexReflector(keyD);
+        List<List<char>> bottomReflector = ConstructTriplexReflector(keyC);
         string dtrCipherResult = "";
         for (int i = 0; i < 6; i++)
         {
-            Debug.Log(topReflector.Select(x => x.Join("")).Join("\n") + "\n---------\n" + bottomReflector.Select(x => x.Join("")).Join("\n"));
+            Debug.LogFormat("[Crimson Cipher #{0}] \n{1}", moduleId, topReflector.Select(x => x.Join("")).Join("\n") + "\n---------\n" + bottomReflector.Select(x => x.Join("")).Join("\n"));
             char intermediateLetterA = bottomReflector[topReflector.IndexOf(word[i])[0]][topReflector.IndexOf(word[i])[1]];
             char intermediateLetterB = bottomReflector[topReflector.IndexOf(intermediateLetterA)[0]][topReflector.IndexOf(intermediateLetterA)[1]];
             char encryptedLetter = bottomReflector[topReflector.IndexOf(intermediateLetterB)[0]][topReflector.IndexOf(intermediateLetterB)[1]];
-            Debug.Log(word[i] + " -> " + intermediateLetterA + " -> " + intermediateLetterB + " -> " + encryptedLetter);
+            Debug.LogFormat("[Crimson Cipher #{0}] {1}", moduleId, word[i] + " -> " + intermediateLetterA + " -> " + intermediateLetterB + " -> " + encryptedLetter);
             dtrCipherResult += encryptedLetter;
             if (i == 5)
                 break;
-            Debug.Log(keyE[i] + " = " + ((keyE[i] - '@') / 9).ToString() + ((keyE[i] - '@') / 3 % 3).ToString() + ((keyE[i] - '@') % 3).ToString() + " = " + ((keyE[i] - '@') / 9).ToString() + " " + ((keyE[i] - '@') / 3 % 3).ToString() + ((keyE[i] - '@') % 3).ToString() + " = " + ((keyE[i] - '@') / 9).ToString() + ((keyE[i] - '@') / 3 % 3).ToString() + " " + ((keyE[1] - '@') % 3).ToString());
+            Debug.LogFormat("[Crimson Cipher #{0}] {1}", moduleId, keyE[i] + " = " + ((keyE[i] - '@') / 9).ToString() + ((keyE[i] - '@') / 3 % 3).ToString() + ((keyE[i] - '@') % 3).ToString() + " = " + ((keyE[i] - '@') / 9).ToString() + " " + ((keyE[i] - '@') / 3 % 3).ToString() + ((keyE[i] - '@') % 3).ToString() + " = " + ((keyE[i] - '@') / 9).ToString() + ((keyE[i] - '@') / 3 % 3).ToString() + " " + ((keyE[1] - '@') % 3).ToString());
             List<int> indexA = bottomReflector.IndexOf(intermediateLetterA);
             List<int> indexB = topReflector.IndexOf(intermediateLetterB);
             bottomReflector = bottomReflector.Transpose();
@@ -171,22 +172,85 @@ public class crimsonCipher : MonoBehaviour
             topReflector = topReflector.Transpose();
         }
         word = dtrCipherResult;
+        Debug.LogFormat("[Crimson Cipher #{0}] After Dual Triplex Reflector Cipher: {1}", moduleId, word);
         //Transposed Halved Polybius Cipher
         string keyF = pickWord(5, 8);
         string keyG = pickWord(7);
         pages[0][1] = keyF;
         pages[0][2] = keyG;
-        return word;
-       
+        Debug.LogFormat("[Crimson Cipher #{0}] Transposed Halved Polybius Cipher keys: {1}, {2}", moduleId, keyF, keyG);
+        List<List<List<char>>> halvedPolybiusSquare = ConstructHalvedPolybiusSquare(keyF);
+        List<List<int>> matrix = Matrixify(word, halvedPolybiusSquare).Transpose();
+        Debug.LogFormat("[Crimson Cipher #{0}] \n{1}", moduleId, halvedPolybiusSquare.Transpose().Select(x => x.Select(y => y.Join(""))).Select(x => x.Join(" ")).Join("\n"));
+        Debug.LogFormat("[Crimson Cipher #{0}] \n{1}", moduleId, PutIntoLoggingForm(matrix).Select(x => x.Join("")).Join("\n"));
+        for (int i = 6; i > -1; i--)
+        {           
+            List<int> coords = FindCoords(keyG[i], halvedPolybiusSquare).Skip(1).ToList();
+            if (i % 2 == 0)
+            {
+                switch (coords[0])
+                {
+                    case 0:
+                        matrix[0] = matrix[0].RotateIgnoringSome(coords[1], new List<int>() { });
+                        break;
+                    case 1:
+                        matrix[1] = matrix[1].RotateIgnoringSome(coords[1], new List<int>() {3});
+                        break;
+                    case 2:
+                        matrix[2] = matrix[2].RotateIgnoringSome(coords[1], new List<int>() {4,5});
+                        break;
+                }             
+            }
+            else
+            {
+                matrix = matrix.Transpose();
+                List<int> temp = matrix[coords[1]];
+                matrix[coords[1]] = matrix[coords[1] + coords[0]];
+                matrix[coords[1] + coords[0]] = temp;
+                matrix = matrix.Transpose();
+            }
+        Debug.LogFormat("[Crimson Cipher #{0}] \n{1}", moduleId, PutIntoLoggingForm(matrix).Select(x => x.Join("")).Join("\n"));
+        }
+        matrix = matrix.Transpose();
+        string result = "";
+        for (int i = 0; i < 6; i++)
+            result += halvedPolybiusSquare[matrix[i][0]][matrix[i][1]][matrix[i][2]];
+        Debug.LogFormat("[Crimson Cipher #{0}] Encrypted word: {1}", moduleId, result);
+        return result;     
     }
 
-    private List<List<char>> constructTriplexReflector (string key)
+    private List<List<char>> ConstructTriplexReflector (string key)
     {
         List<char> flatReflector = (key + alphabet).ToList().Distinct().ToList();
         flatReflector.Insert(13, ' ');
         return flatReflector.ChunkBy(9);
-     }
-
+    }
+    private List<List<List<char>>> ConstructHalvedPolybiusSquare (string key)
+    {
+        List<char> flatSquare = (key + alphabet).ToList().Distinct().ToList();
+        foreach (int i in new List<int>() { 13, 14, 28, 29})
+            flatSquare.Insert(i, ' ');
+        return flatSquare.ChunkBy(5).ChunkBy(3);
+    }
+    private List<List<int>> Matrixify (string word, List<List<List<char>>> square)
+    {
+        List<List<int>> matrix = new List<List<int>>();
+        foreach (char i in word)
+            matrix.Add(FindCoords(i, square));
+        return matrix;
+    }
+    private List<List<string>> PutIntoLoggingForm (List<List<int>> matrix)
+    {
+        List<List<string>> logMatrix = matrix.Select(x => x.Select(y => (y + 1).ToString()).ToList()).ToList();
+        logMatrix[0] = logMatrix[0].Select(x => x == "1" ? "L" : "R").ToList();
+        return logMatrix;
+    }
+    private List<int> FindCoords(char letter, List<List<List<char>>> square)
+    {
+        List<int> coord = new List<int>();
+        coord.Add(square.IndexOf(square.First(x => x.Any(y => y.Contains(letter)))));
+        return coord.Concat(square[coord[0]].IndexOf(letter)).ToList();
+    }
     private string pickWord(int length)
     {
         var wl = wordList[length - 4];
