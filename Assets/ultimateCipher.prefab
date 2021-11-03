@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 102401349229946424}
   - component: {fileID: 114516019395486986}
   m_Layer: 0
-  m_Name: New Text
+  m_Name: rightArrowText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6686,9 +6686,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
   Children:
-  - {fileID: 114548455226322300}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 114911901379096556}
   - {fileID: 114686871938806912}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114548455226322300}
+  - {fileID: 0}
   - {fileID: 114294989904943224}
   - {fileID: 114896851185793716}
   - {fileID: 114407814896212638}
@@ -6706,6 +6721,7 @@ MonoBehaviour:
   - {fileID: 114162583666766036}
   - {fileID: 114514342168264450}
   - {fileID: 114812898050932100}
+  - {fileID: 0}
   - {fileID: 114468756781051546}
   - {fileID: 114274769053816036}
   - {fileID: 114173007846844260}
@@ -6716,7 +6732,7 @@ MonoBehaviour:
   - {fileID: 114939003352452514}
   - {fileID: 114803003144720404}
   IsPassThrough: 0
-  ChildRowLength: 0
+  ChildRowLength: 9
   Highlight: {fileID: 114414083394793904}
   SelectableColliders: []
   DefaultSelectableIndex: 0
@@ -8188,24 +8204,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea11bbe7a74d1084f83fa929280563df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bomb: {fileID: 114704389644707612}
+  module: {fileID: 114582533426766456}
+  Audio: {fileID: 114146572304712394}
   screenTexts:
   - {fileID: 102596735273482508}
   - {fileID: 102888994115873060}
   - {fileID: 102573345948088674}
-  Bomb: {fileID: 114704389644707612}
-  module: {fileID: 114582533426766456}
-  sounds:
-  - {fileID: 8300000, guid: ee2fc3ae9aa4acf4db8ef5f33310ea27, type: 3}
-  - {fileID: 8300000, guid: 64f945748ae0ed14984918741a75e0f8, type: 3}
-  - {fileID: 8300000, guid: 37a777973000bd246b8bbd5f9aa85508, type: 3}
-  - {fileID: 8300000, guid: 35469215bfc3f6d4a8ee5480c83d86fd, type: 3}
-  - {fileID: 8300000, guid: 9792cd8045d17fa40923e22cd0711f2d, type: 3}
-  - {fileID: 8300000, guid: c68e6fe2de606444390a96f9e3d2770a, type: 3}
-  Audio: {fileID: 114146572304712394}
   submitText: {fileID: 102278302262335540}
-  arrowText:
-  - {fileID: 102407306692582752}
-  - {fileID: 102401349229946424}
   leftArrow: {fileID: 114911901379096556}
   rightArrow: {fileID: 114686871938806912}
   submit: {fileID: 114548455226322300}
@@ -8236,27 +8242,10 @@ MonoBehaviour:
   - {fileID: 114915129775099758}
   - {fileID: 114939003352452514}
   - {fileID: 114803003144720404}
+  arrowTexts:
+  - {fileID: 102407306692582752}
+  - {fileID: 102401349229946424}
   background: {fileID: 23822670394364926}
-  backgroundcolors:
-  - {fileID: 2100000, guid: 7d93171fb724f94439593b60f827e2c2, type: 2}
-  - {fileID: 2100000, guid: 35d34dfc2896c5d498f9e06135ed73e4, type: 2}
-  - {fileID: 2100000, guid: 12676e89ad4b7324f8877b32d92e515a, type: 2}
-  - {fileID: 2100000, guid: ab2da4ad88990b74d8ee7d66354824fd, type: 2}
-  - {fileID: 2100000, guid: fe0598e4e999af54c978c087dc1a1eda, type: 2}
-  - {fileID: 2100000, guid: bdbfd7060763b544988df53018b32cea, type: 2}
-  - {fileID: 2100000, guid: 79bce1563608f3341bd0f92518c2c977, type: 2}
-  - {fileID: 2100000, guid: f0eb16c32977dfe40bc2e063ebfb5c43, type: 2}
-  - {fileID: 2100000, guid: 6cd09fcb4158df94daffa5852b33efbd, type: 2}
-  - {fileID: 2100000, guid: 361cd8f6383f02842a72aa3c4efc0f41, type: 2}
-  - {fileID: 2100000, guid: 5971188475ebc594eacb53f5fa1a0858, type: 2}
-  - {fileID: 2100000, guid: 348f1b83d6cc8d04e936044c0e0cba97, type: 2}
-  - {fileID: 2100000, guid: 1300aceec4e249142b813a0d568662a5, type: 2}
-  - {fileID: 2100000, guid: 6acf9a7295f042c488f3159d21cd9917, type: 2}
-  - {fileID: 2100000, guid: d69751c924194014b9793fe88ff6a59d, type: 2}
-  - {fileID: 2100000, guid: 11fdef5d3e2f2784c9f41873ce5cf81e, type: 2}
-  screencolors:
-  - {fileID: 2100000, guid: 5a830770b132e4649b3d6e69ada787b0, type: 2}
-  - {fileID: 2100000, guid: 06321107eb3787f4994b36e85f6d6536, type: 2}
   screens:
   - {fileID: 23881766441303784}
   - {fileID: 23737954153335992}
@@ -8265,12 +8254,35 @@ MonoBehaviour:
   - {fileID: 23573132579432904}
   - {fileID: 23275244043789900}
   - {fileID: 23572837230033592}
-  fonts:
-  - {fileID: 12800000, guid: 823b05cde332d2a49a4938614fcc4eb2, type: 3}
-  - {fileID: 12800000, guid: 3f5db70ba9d4a1d40b59dd75ffc2532b, type: 3}
-  fontmat:
-  - {fileID: 2100000, guid: 0c5baa6f66e757a42a577cc18bfcff73, type: 2}
-  - {fileID: 2100000, guid: e2b339a2c3ea24343a06aab28b5106aa, type: 2}
+  backgroundcolors:
+  - {fileID: 2100000, guid: 5971188475ebc594eacb53f5fa1a0858, type: 2}
+  - {fileID: 2100000, guid: bdbfd7060763b544988df53018b32cea, type: 2}
+  - {fileID: 2100000, guid: 348f1b83d6cc8d04e936044c0e0cba97, type: 2}
+  - {fileID: 2100000, guid: 6acf9a7295f042c488f3159d21cd9917, type: 2}
+  - {fileID: 2100000, guid: d4bfa4e91c89464429e3f9433cc0f064, type: 2}
+  - {fileID: 2100000, guid: 361cd8f6383f02842a72aa3c4efc0f41, type: 2}
+  - {fileID: 2100000, guid: fe0598e4e999af54c978c087dc1a1eda, type: 2}
+  - {fileID: 2100000, guid: 79bce1563608f3341bd0f92518c2c977, type: 2}
+  - {fileID: 2100000, guid: 1300aceec4e249142b813a0d568662a5, type: 2}
+  - {fileID: 2100000, guid: 12676e89ad4b7324f8877b32d92e515a, type: 2}
+  - {fileID: 2100000, guid: 35d34dfc2896c5d498f9e06135ed73e4, type: 2}
+  - {fileID: 2100000, guid: f0eb16c32977dfe40bc2e063ebfb5c43, type: 2}
+  - {fileID: 2100000, guid: 6cd09fcb4158df94daffa5852b33efbd, type: 2}
+  - {fileID: 2100000, guid: ab2da4ad88990b74d8ee7d66354824fd, type: 2}
+  ultimateCipherBackground: {fileID: 2100000, guid: 7d93171fb724f94439593b60f827e2c2,
+    type: 2}
+  pinkCipherBackground: {fileID: 2100000, guid: d69751c924194014b9793fe88ff6a59d,
+    type: 2}
+  cyanCipherBackground: {fileID: 2100000, guid: 11fdef5d3e2f2784c9f41873ce5cf81e,
+    type: 2}
+  blackScreensAndButtons: {fileID: 2100000, guid: 5a830770b132e4649b3d6e69ada787b0,
+    type: 2}
+  whiteScreensAndButtons: {fileID: 2100000, guid: 06321107eb3787f4994b36e85f6d6536,
+    type: 2}
+  standardFont: {fileID: 12800000, guid: 823b05cde332d2a49a4938614fcc4eb2, type: 3}
+  pigpenFont: {fileID: 12800000, guid: 3f5db70ba9d4a1d40b59dd75ffc2532b, type: 3}
+  standardFontMat: {fileID: 2100000, guid: 0c5baa6f66e757a42a577cc18bfcff73, type: 2}
+  pigpenFontMat: {fileID: 2100000, guid: e2b339a2c3ea24343a06aab28b5106aa, type: 2}
 --- !u!114 &114780593474400922
 MonoBehaviour:
   m_ObjectHideFlags: 1

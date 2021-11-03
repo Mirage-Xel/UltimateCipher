@@ -3234,7 +3234,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476060975470908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0, z: 0.2}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4463667010345256}
@@ -6996,9 +6996,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
   Children:
-  - {fileID: 114111457610155674}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 114240847462546348}
   - {fileID: 114100440311644682}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114111457610155674}
+  - {fileID: 0}
   - {fileID: 114007771153450184}
   - {fileID: 114136917470155388}
   - {fileID: 114129101123405828}
@@ -7016,6 +7031,7 @@ MonoBehaviour:
   - {fileID: 114396545234026552}
   - {fileID: 114322382674898360}
   - {fileID: 114406679916942876}
+  - {fileID: 0}
   - {fileID: 114715484525103178}
   - {fileID: 114030604570592080}
   - {fileID: 114871685888065914}
@@ -7026,7 +7042,7 @@ MonoBehaviour:
   - {fileID: 114350349391680510}
   - {fileID: 114081589791679718}
   IsPassThrough: 0
-  ChildRowLength: 0
+  ChildRowLength: 9
   Highlight: {fileID: 114876620943186664}
   SelectableColliders: []
   DefaultSelectableIndex: 0
@@ -7071,18 +7087,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f830a265fc1dc46ac81b5e579db4a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bomb: {fileID: 114999617799424558}
+  module: {fileID: 114638906759116462}
+  Audio: {fileID: 114868721097443124}
   screenTexts:
   - {fileID: 102040479651289046}
   - {fileID: 102869476285463240}
   - {fileID: 102309527537902046}
-  Bomb: {fileID: 114999617799424558}
-  module: {fileID: 114638906759116462}
-  sounds:
-  - {fileID: 8300000, guid: ee2fc3ae9aa4acf4db8ef5f33310ea27, type: 3}
-  - {fileID: 8300000, guid: 64f945748ae0ed14984918741a75e0f8, type: 3}
-  - {fileID: 8300000, guid: b64809a3d82ad9048bb4c7f4d4158e90, type: 3}
-  - {fileID: 8300000, guid: 35469215bfc3f6d4a8ee5480c83d86fd, type: 3}
-  Audio: {fileID: 114868721097443124}
   submitText: {fileID: 102634545970244184}
   leftArrow: {fileID: 114240847462546348}
   rightArrow: {fileID: 114100440311644682}
@@ -7114,6 +7125,7 @@ MonoBehaviour:
   - {fileID: 114341287100340168}
   - {fileID: 114350349391680510}
   - {fileID: 114081589791679718}
+  arrowTexts: []
 --- !u!114 &114224901873551174
 MonoBehaviour:
   m_ObjectHideFlags: 1

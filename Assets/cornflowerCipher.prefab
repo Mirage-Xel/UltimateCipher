@@ -7242,18 +7242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071cbfde53b5144468b1eb8136acfef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bomb: {fileID: 114287425829883388}
+  module: {fileID: 114284519723011884}
+  Audio: {fileID: 114547841223551270}
   screenTexts:
   - {fileID: 102087425787525894}
   - {fileID: 102346938377165014}
   - {fileID: 102466116822786480}
-  Bomb: {fileID: 114287425829883388}
-  module: {fileID: 114284519723011884}
-  sounds:
-  - {fileID: 8300000, guid: ee2fc3ae9aa4acf4db8ef5f33310ea27, type: 3}
-  - {fileID: 8300000, guid: 64f945748ae0ed14984918741a75e0f8, type: 3}
-  - {fileID: 8300000, guid: b64809a3d82ad9048bb4c7f4d4158e90, type: 3}
-  - {fileID: 8300000, guid: 35469215bfc3f6d4a8ee5480c83d86fd, type: 3}
-  Audio: {fileID: 114547841223551270}
   submitText: {fileID: 102842765887289390}
   leftArrow: {fileID: 114474486320725194}
   rightArrow: {fileID: 114700819204789556}
@@ -7285,6 +7280,7 @@ MonoBehaviour:
   - {fileID: 114890409575757646}
   - {fileID: 114131404224503750}
   - {fileID: 114991204045727886}
+  arrowTexts: []
 --- !u!114 &114338225253367936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7721,9 +7717,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
   Children:
-  - {fileID: 114024382081686044}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 114474486320725194}
   - {fileID: 114700819204789556}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 114024382081686044}
+  - {fileID: 0}
   - {fileID: 114877746240935558}
   - {fileID: 114499232614423660}
   - {fileID: 114096713668558316}
@@ -7741,6 +7752,7 @@ MonoBehaviour:
   - {fileID: 114359394873996368}
   - {fileID: 114496263531297674}
   - {fileID: 114345983095770786}
+  - {fileID: 0}
   - {fileID: 114689750210690184}
   - {fileID: 114848780383008412}
   - {fileID: 114375798957284952}
@@ -7751,7 +7763,7 @@ MonoBehaviour:
   - {fileID: 114131404224503750}
   - {fileID: 114991204045727886}
   IsPassThrough: 0
-  ChildRowLength: 0
+  ChildRowLength: 9
   Highlight: {fileID: 114240242727959556}
   SelectableColliders: []
   DefaultSelectableIndex: 0
